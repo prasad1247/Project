@@ -1,0 +1,14 @@
+sudo apt-get update
+sudo dpkg -i mysql-apt-config_0.8.10-1_all.deb
+sudo apt-get install mysql-server
+sudo apt-get install unzip
+sudo apt-get install python3-pip
+apt-get install libmysqlclient-dev python-dev
+UPDATE mysql.user SET authentication_string=PASSWORD('my-new-password') WHERE USER='root';
+FLUSH PRIVILEGES;
+
+export FLASK_APP=project
+export FLASK_ENV=development
+flask run
+
+mysql -u root -p -e "use mysql;update user set plugin='mysql_native_password' where user='root';flush privileges;"
