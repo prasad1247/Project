@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Hello World</title>
+    {% include 'cssFiles.html' %}
+</head>
+
+<body class="courses-page">
+    {% include 'header.html' %}
+    <section class="featured-courses horizontal-column courses-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <header class="heading flex justify-content-between align-items-center">
+                        <h2 class="entry-title">Find Your Learning Style</h2>
+                    </header><!-- .heading -->
+                </div><!-- .col -->
+                <div class="col-12 col-lg-12">
+                    <form action="/post" method="post">
+                        <div class="course-content flex flex-wrap justify-content-between align-content-lg-stretch">
+                            {%  set i = 1 %}
+                              {% for quest in question %}
+                            <div class="row" style="margin: 10px">
+                                <div class="col-12 col-lg-12">
+                                    <h4>{{loop.index}}. {{ quest['question'] }}</h4>
+                                    {% set i = i + 1 %}
+                                </div>
+                                <div class="col-12 col-lg-12">
+                                    <input type="radio" name="option{{quest['id']}}" id="option1" value="1" > A. {{
+                                    quest['option1']
+                                    }}
+                                </div>
+                                <div class="col-12 col-lg-12">
+                                    <input type="radio" name="option{{quest['id']}}" id="option2" value="2" > B. {{
+                                    quest['option2']
+                                    }}
+                                </div>
+                                <div class="col-12 col-lg-12">
+                                    <input type="radio" name="option{{quest['id']}}" id="option2" value="3" > C. {{
+                                    quest['option3']
+                                    }}
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <div class="text-center">
+                                <input class="btn btn-primary" type="submit" value="submit">
+                                <input class="btn btn-light" type="reset" value="reset">
+                            </div>
+                            <!-- .course-content -->
+                    </form>
+                </div>
+            </div><!-- .col -->
+
+        </div><!-- .row -->
+        </div><!-- .container -->
+    </section><!-- .courses-wrap -->
+    {% include 'footerJs.html' %}
+</body>
+
+</html>
