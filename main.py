@@ -1,2 +1,2 @@
-from project import app
-app.run(debug=True)
+import project
+project.create_app().run(host='0.0.0.0')
