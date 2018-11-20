@@ -27,7 +27,7 @@ def post():
             b=b+1
         if(request.form.get('option'+str(i))==str(3)):        
             c=c+1
-       # db.addAnswers(student_id,i,request.form.get('option'+str(i)))
+        db.addAnswers(student_id,i,request.form.get('option'+str(i)))
     learningStyle=''
     if a > b and a > c:
         learningStyle="You have a VISUAL learning style"
