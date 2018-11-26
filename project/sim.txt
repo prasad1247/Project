@@ -1,0 +1,69 @@
+problem	for	for	10
+problem	for	if	5
+problem	for	if else	4
+problem	for	while	8
+problem	for	do while	6
+problem	for	switch	3
+problem	if	if	10
+problem	if	if else	9
+problem	if	while	5
+problem	if	do while	4
+problem	if	switch	7
+problem	if else	if else	10
+problem	if else	while	5
+problem	if else	do while	4
+problem	if else	switch	8
+problem	while	while	10
+problem	while	do while	9
+problem	while	switch	3
+problem	do while	do while	10
+problem	do while	switch	3
+problem	switch	switch	10
+learning_style	Visual	Visual	10
+learning_style	Visual	Auditory	7
+learning_style	Visual	Kinesthetic	5
+learning_style	Auditory	Auditory	10
+learning_style	Auditory	Kinesthetic	4
+learning_style	Kinesthetic	Kinesthetic	10
+knowledge_level	Beginner	Beginner	10
+knowledge_level	Beginner	Intermediate	6
+knowledge_level	Beginner	Expert	4
+knowledge_level	Intermediate	Intermediate	10
+knowledge_level	Intermediate	Expert	7
+knowledge_level	Expert	Expert	10
+learning_object	Video	Video	10
+learning_object	Video	Audios	7
+learning_object	Video	Simulation	8
+learning_object	Video	Highlighted Text	5
+learning_object	Video	Chart	6
+learning_object	Audios	Audios	10
+learning_object	Audios	Simulation	7
+learning_object	Audios	Highlighted Text	6
+learning_object	Audios	Chart	5
+learning_object	Simulation	Simulation	10
+learning_object	Simulation	Highlighted Text	8
+learning_object	Simulation	Chart	7
+learning_object	Highlighted Text	Highlighted Text	10
+learning_object	Highlighted Text	Chart	7
+learning_object	Chart	Chart	10
+path	Video->Simulation	Video->Simulation	10
+path	Video->Simulation	Video->Audios	7
+path	Video->Simulation	Audios->simulation	7
+path	Video->Simulation	Highlighted Text->Simulation	5
+path	Video->Simulation	Video->Chart	6
+path	Video->Simulation	Chart->Simulation	5
+path	Video->Audios	Video->Audios	10
+path	Video->Audios	Audios->simulation	8
+path	Video->Audios	Highlighted Text->Simulation	4
+path	Video->Audios	Video->Chart	6
+path	Video->Audios	Chart->Simulation	7
+path	Audios->simulation	Audios->simulation	10
+path	Audios->simulation	Highlighted Text->Simulation	7
+path	Audios->simulation	Video->Chart	4
+path	Audios->simulation	Chart->Simulation	5
+path	Highlighted Text->Simulation	Highlighted Text->Simulation	10
+path	Highlighted Text->Simulation	Video->Chart	7
+path	Highlighted Text->Simulation	Chart->Simulation	6
+path	Video->Chart	Video->Chart	10
+path	Video->Chart	Chart->Simulation	7
+path	Chart->Simulation	Chart->Simulation	10
