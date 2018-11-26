@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>KNN</title>
+    {% include 'cssFiles.html' %}
+</head>
+
+<body class="courses-page">
+    {% include 'header.html' %}
+    <section class="featured-courses horizontal-column courses-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <header class="heading flex justify-content-between align-items-center">
+                        <h3>Result of KNN algorithm for finding Learning Objects</h3>
+                    </header><!-- .heading -->
+                </div><!-- .col -->
+                <div class="col-12 col-lg-12">
+                    <table class="table">
+                        <tr>
+                            <td>
+                                <h5 class="entry-title">Training Set Size : {{result["TrainSet"]}}</h5>
+                                <h5 class="entry-title">Test Set Size : {{result["TestSet"]}}</h5>
+                                <h5 class="entry-title">Accuracy : {{result["accuracy"]}}</h5>
+                            </td>
+                        </tr>
+                        {% for r in result["results"] %}
+                        <tr>
+                            <td>
+                                {{r | safe}}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <h4>Train Dataset</h4>
+                    <table class="table">
+                        {% for r in result["TrainData"] %}
+                        <tr>
+                            <td>
+                                {{r}}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <h4>Test Dataset</h4>
+                    <table class="table">
+                        {% for r in result["TestData"] %}
+                        <tr>
+                            <td>
+                                {{r}}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div><!-- .col -->
+
+        </div><!-- .row -->
+        </div><!-- .container -->
+    </section><!-- .courses-wrap -->
+    {% include 'footerJs.html' %}
+</body>
+
+</html>

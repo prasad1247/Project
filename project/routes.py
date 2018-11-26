@@ -5,6 +5,7 @@ import time
 import random
 from werkzeug.exceptions import abort
 from project import db
+from project import knn
 bp = Blueprint('blog', __name__)
 
 
@@ -39,12 +40,14 @@ def post():
     print(learningStyle)
     return render_template('result.html',learningStyle=learningStyle)
 
-@bp.route('/blog')
+@bp.route('/knn')
 def blog():
-    """Show all the posts, most recent first."""
-    return render_template('blog.html')
+    """Run Knn."""
+    result=knn.main()
+    return render_template('knn.html',result=result)
 
 @bp.route('/course')
 def course():
     """Show all the posts, most recent first."""
+
     return render_template('single-courses.html')

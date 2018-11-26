@@ -3,8 +3,7 @@ import random
 import math
 import operator
 import MySQLdb
-from generate import Feature
-
+from project.generate import Feature
 
 mydb = MySQLdb.connect(
     host="localhost",
@@ -15,7 +14,7 @@ mydb = MySQLdb.connect(
 
 
 def loadDataset(filename, split, trainingSet=[], testSet=[]):
-    mydb.query("""select * from dataset """)
+    mydb.query("""select * from dataset where problem='switch'""")
     r = mydb.store_result()
     dataset = r.fetch_row(maxrows=0, how=1)
     for x in dataset:
@@ -44,17 +43,17 @@ def getScore(x, testInstance):
     mydb.query("""select * from feature_sim """)
     r = mydb.store_result()
     sims = r.fetch_row(maxrows=0, how=1)
-    pScore = calculate(x.problem, testInstance.problem, sims, 'problem')
+    # pScore = calculate(x.problem, testInstance.problem, sims, 'problem')
     learningStyleScore = calculate(
         x.learningStyle, testInstance.learningStyle, sims, 'learning_style')
     kScore = calculate(x.knowledgeLevel, testInstance.knowledgeLevel,
                        sims, 'knowledge_level')
     # oScore = calculate(x.learningObject, testInstance.learningObject,
-    #                    sims, 'learning_object')
+    #                     sims, 'learning_object')
     pathScore = calculate(x.path, testInstance.path, sims, 'path')
     testScore = 10-abs(int(x.testPerformance) -
                        int(testInstance.testPerformance))
-    total = pScore+learningStyleScore+kScore+pathScore+testScore
+    total = learningStyleScore+kScore+int(pathScore or 0)+testScore
     return 200-total
 
 
@@ -96,9 +95,11 @@ def getResponse(neighbors):
 
 def getAccuracy(testSet, predictions):
     correct = 0
-    for x in range(len(testSet)):
-        if testSet[x][-1] == predictions[x]:
+    i=0
+    for x in testSet:
+        if x.learningObject == predictions[i]:
             correct += 1
+        i=i+1
     return (correct/float(len(testSet))) * 100.0
 
 
@@ -107,19 +108,31 @@ def main():
     trainingSet = []
     testSet = []
     split = 0.67
+    displayResult={}
     loadDataset('iris.data', split, trainingSet, testSet)
     print('Train set: ' + repr(len(trainingSet)))
     print('Test set: ' + repr(len(testSet)))
+    
     # generate predictions
     predictions=[]
-    k = 3
+    k = 2
+    displayList=[]
     for x in range(len(testSet)):
         neighbors = getNeighbors(trainingSet, testSet[x], k)
         result = getResponse(neighbors)
         predictions.append(result)
         print('> predicted=' + repr(result) + ', actual=' + repr(testSet[x].learningObject))
-    # accuracy = getAccuracy(testSet, predictions)
-    # print('Accuracy: ' + repr(accuracy) + '%')
+        displayList.append('<b>predicted</b>=' + repr(result) + ', <b>actual</b>=' + repr(testSet[x].learningObject))
+    accuracy = getAccuracy(testSet, predictions)
 
+    displayResult['TrainSet']=repr(len(trainingSet))
+    displayResult['TestSet']=repr(len(testSet))
+    displayResult['results']=displayList
+    displayResult['accuracy']=repr(accuracy)
+    displayResult['TrainData']=trainingSet
+    displayResult['TestData']=testSet
+    
+    print('Accuracy: ' + repr(accuracy) + '%')
+    return displayResult
 
-main()
+# main()

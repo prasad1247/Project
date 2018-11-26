@@ -9,6 +9,8 @@ class Feature:
     learningObject=''
     testPerformance=''
     path=''
+    def __str__(self):
+        return str(self.__dict__)
 
 
 
@@ -21,9 +23,11 @@ mydb = MySQLdb.connect(
 problemList=("for","if","if else","while","do while","switch")
 learningStyles=["Visual","Auditory","Kinesthetic"]
 knowledgeLevels=["Beginner","Intermediate","Expert"]
-learningObjects=["Video","Audios","Simulation","Highlighted Text","ChartsAnd"]
+learningObjects=["Video","Audios","Simulation","Highlighted Text","Chart"]
+learningObjects1={"Visual":["Video","Chart"],"Auditory":["Audios","Video"],"Kinesthetic":["Simulation","Highlighted Text"]}
 testPerformance=[3,4,5,6,7]
-path=["Video->Simulation","Video->Audios","Audios->simulation","Highlighted Text->Simulation","Video->Chart","Chart->Simulation"]
+# path=["Video->Simulation","Video->Audios","Audios->simulation","Highlighted Text->Simulation","Video->Chart","Chart->Simulation"]
+path={"Visual":"Video->Chart","Auditory":"Audios->Video","Kinesthetic":"Simulation->Highlighted Text"}
 
 
 def getStyles():
@@ -49,9 +53,10 @@ def getStyles():
         f.learningStyle=learningStyle
         generateProblem(f)
         generateKnowledgeLevel(f)
+        generateLearningObjects(f)
         generateTestPerformance(f)
         generatePath(f)
-        generateLearningObjects(f)
+        
         c=mydb.cursor()
         c.execute("""insert into dataset(student_id,problem,learning_style,knowledge_level,learning_object,test_performance,path)
         values(%s, %s, %s, %s, %s, %s, %s)""",[f.student_id,f.problem,f.learningStyle,f.knowledgeLevel,f.learningObject,f.testPerformance,f.path])
@@ -71,20 +76,35 @@ def generateKnowledgeLevel(f):
             f.knowledgeLevel=knowledgeLevels[cnt]
 
 def generateTestPerformance(f):
-    for i in range(len(testPerformance)):
-            cnt=randint(0, 4)
-            f.testPerformance=testPerformance[cnt]
+    if f.knowledgeLevel=="Beginner":
+        if f.learningObject==learningObjects1[f.learningStyle][0]:
+            cnt=randint(3,5)
+            f.testPerformance=cnt
+        else:
+            cnt=randint(3,5)
+            f.testPerformance=cnt-1
+    if f.knowledgeLevel=="Intermediate":
+        if f.learningObject==learningObjects1[f.learningStyle][0]:
+            cnt=randint(4,6)
+            f.testPerformance=cnt
+        else:
+            cnt=randint(4,6)
+            f.testPerformance=cnt-1
+    if f.knowledgeLevel=="Expert":
+        if f.learningObject==learningObjects1[f.learningStyle][0]:
+            cnt=randint(5,7)
+            f.testPerformance=cnt
+        else:
+            cnt=randint(5,7)
+            f.testPerformance=cnt-1
 
 def generatePath(f):
-    for i in range(len(path)):
-            cnt=randint(0, 5)
-            f.path=path[cnt]
+    f.path=path[f.learningStyle]
 
 
 def generateLearningObjects(f):
-    for i in range(len(learningObjects)):
-            cnt=randint(0, 4)
-            f.learningObject=learningObjects[cnt]
+    cnt=randint(0, 1)
+    f.learningObject=learningObjects1[f.learningStyle][cnt]
 
 
-getStyles()
+# getStyles()
