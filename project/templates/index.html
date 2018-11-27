@@ -23,7 +23,7 @@
                               {% for quest in question %}
                             <div class="row" style="margin: 10px">
                                 <div class="col-12 col-lg-12">
-                                    <h4>{{loop.index}}. {{ quest['question'] }}</h4>
+                                    <b>{{loop.index}}. {{ quest['question'] }}</b>
                                     {% set i = i + 1 %}
                                 </div>
                                 <div class="col-12 col-lg-12">
@@ -44,8 +44,8 @@
                             </div>
                             {% endfor %}
                             <div class="text-center">
-                                <input class="btn btn-primary" type="submit" value="submit">
-                                <input class="btn btn-light" type="reset" value="reset">
+                                <input class="btn btn-primary" type="submit" value="Next">
+                                <input class="btn btn-light" style="margin: 10px" type="reset" value="reset">
                             </div>
                             <!-- .course-content -->
                     </form>

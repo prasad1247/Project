@@ -46,8 +46,8 @@ def blog():
     result=knn.main()
     return render_template('knn.html',result=result)
 
-@bp.route('/course')
+@bp.route('/test')
 def course():
     """Show all the posts, most recent first."""
 
-    return render_template('single-courses.html')
+    return render_template('result.html',learningStyle="You have a VISUAL learning style")
