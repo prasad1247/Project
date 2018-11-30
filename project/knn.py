@@ -4,6 +4,7 @@ import math
 import operator
 import MySQLdb
 from project.generate import Feature
+from project import data
 
 mydb = MySQLdb.connect(
     host="localhost",
@@ -11,7 +12,6 @@ mydb = MySQLdb.connect(
     passwd="root",
     db="learningdb"
 )
-
 
 def loadDataset(filename, split, trainingSet=[], testSet=[]):
     mydb.query("""select * from dataset where problem='switch'""")
@@ -39,29 +39,55 @@ def euclideanDistance(instance1, instance2, length):
     return math.sqrt(distance)
 
 
-def getScore(x, testInstance):
+def getScore1(x, testInstance):
     mydb.query("""select * from feature_sim """)
     r = mydb.store_result()
     sims = r.fetch_row(maxrows=0, how=1)
     # pScore = calculate(x.problem, testInstance.problem, sims, 'problem')
-    learningStyleScore = calculate(
+    learningStyleScore = calculate1(
         x.learningStyle, testInstance.learningStyle, sims, 'learning_style')
-    kScore = calculate(x.knowledgeLevel, testInstance.knowledgeLevel,
+    kScore = calculate1(x.knowledgeLevel, testInstance.knowledgeLevel,
                        sims, 'knowledge_level')
     # oScore = calculate(x.learningObject, testInstance.learningObject,
     #                     sims, 'learning_object')
-    pathScore = calculate(x.path, testInstance.path, sims, 'path')
+    pathScore = calculate1(x.path, testInstance.path, sims, 'path')
     testScore = 10-abs(int(x.testPerformance) -
                        int(testInstance.testPerformance))
     total = learningStyleScore+kScore+int(pathScore or 0)+testScore
     return 200-total
 
 
-def calculate(xValue, testValue, similarity, featureVal):
+def calculate1(xValue, testValue, similarity, featureVal):
     for sim in similarity:
         if sim['feature'].lower() == featureVal.lower():
             if (sim['value1'].lower() == xValue.lower() and sim['value2'].lower() == testValue.lower()) or (sim['value1'].lower() == testValue.lower() and sim['value2'].lower() == xValue.lower()):
                 return sim['score']
+
+
+def getScore(x, testInstance):
+    learningStyleScore = calculate(
+        x.learningStyle, testInstance.learningStyle, data.learningStyles)
+    kScore = calculate(x.knowledgeLevel, testInstance.knowledgeLevel,data.knowledgeLevels)
+    # oScore = calculate(x.learningObject, testInstance.learningObject,
+    #                     sims, 'learning_object')
+    pathScore = calculate(x.path, testInstance.path, data.path)
+    testScore = calculate(int(x.testPerformance), int(testInstance.testPerformance),
+                          data.testPerformance)
+    total = learningStyleScore+kScore+int(pathScore or 0)+testScore
+    return math.sqrt(total)
+
+
+def calculate(xValue, testValue, dictVals):
+    l=None
+    if type(dictVals) is dict:
+        l=list(dictVals.values())
+        xValue=dictVals[xValue]
+        testValue=dictVals[testValue]
+    else:
+        l=dictVals
+    v1 = normalize(l, xValue)
+    v2= normalize(l,testValue)
+    return pow((v1 - v2), 2)
 
 
 def getNeighbors(trainingSet, testInstance, k):
@@ -95,12 +121,16 @@ def getResponse(neighbors):
 
 def getAccuracy(testSet, predictions):
     correct = 0
-    i=0
+    i = 0
     for x in testSet:
         if x.learningObject == predictions[i]:
             correct += 1
-        i=i+1
+        i = i+1
     return (correct/float(len(testSet))) * 100.0
+
+
+def normalize(data, val):
+    return ((val - min(data)) / (max(data) - min(data)))
 
 
 def main():
@@ -108,31 +138,33 @@ def main():
     trainingSet = []
     testSet = []
     split = 0.67
-    displayResult={}
+    displayResult = {}
     loadDataset('iris.data', split, trainingSet, testSet)
     print('Train set: ' + repr(len(trainingSet)))
     print('Test set: ' + repr(len(testSet)))
-    
+
     # generate predictions
-    predictions=[]
-    k = 2
-    displayList=[]
+    predictions = []
+    k = 4
+    displayList = []
     for x in range(len(testSet)):
         neighbors = getNeighbors(trainingSet, testSet[x], k)
         result = getResponse(neighbors)
         predictions.append(result)
-        print('> predicted=' + repr(result) + ', actual=' + repr(testSet[x].learningObject))
-        displayList.append('<b>predicted</b>=' + repr(result) + ', <b>actual</b>=' + repr(testSet[x].learningObject))
+        print('> predicted=' + repr(result) +
+              ', actual=' + repr(testSet[x].learningObject))
+        displayList.append('<b>predicted</b>=' + repr(result) +
+                           ', <b>actual</b>=' + repr(testSet[x].learningObject))
     accuracy = getAccuracy(testSet, predictions)
 
-    displayResult['TrainSet']=repr(len(trainingSet))
-    displayResult['TestSet']=repr(len(testSet))
-    displayResult['results']=displayList
-    displayResult['accuracy']=repr(accuracy)
-    displayResult['TrainData']=trainingSet
-    displayResult['TestData']=testSet
-    
+    displayResult['TrainSet'] = repr(len(trainingSet))
+    displayResult['TestSet'] = repr(len(testSet))
+    displayResult['results'] = displayList
+    displayResult['accuracy'] = repr(accuracy)
+    displayResult['TrainData'] = trainingSet
+    displayResult['TestData'] = testSet
+
     print('Accuracy: ' + repr(accuracy) + '%')
     return displayResult
 
-# main()
+main()
