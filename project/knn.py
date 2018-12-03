@@ -13,8 +13,15 @@ mydb = MySQLdb.connect(
     db="learningdb"
 )
 
-def loadDataset(filename, split, trainingSet=[], testSet=[]):
-    mydb.query("""select * from dataset where problem='switch'""")
+
+def loadDataset(split, trainingSet=[], testSet=[]):
+    query=""
+    if testSet==None:
+        query="select * from dataset where problem='switch'"
+    else:
+        query="select * from dataset"
+
+    mydb.query(query)
     r = mydb.store_result()
     dataset = r.fetch_row(maxrows=0, how=1)
     for x in dataset:
@@ -26,10 +33,13 @@ def loadDataset(filename, split, trainingSet=[], testSet=[]):
         f.learningStyle = x['learning_style']
         f.path = x['path']
         f.testPerformance = x['test_performance']
-        if random.random() < split:
-            trainingSet.append(f)
+        if(split == None):
+            if random.random() < split:
+                trainingSet.append(f)
+            else:
+                testSet.append(f)
         else:
-            testSet.append(f)
+            trainingSet.append(f)
 
 
 def euclideanDistance(instance1, instance2, length):
@@ -47,7 +57,7 @@ def getScore1(x, testInstance):
     learningStyleScore = calculate1(
         x.learningStyle, testInstance.learningStyle, sims, 'learning_style')
     kScore = calculate1(x.knowledgeLevel, testInstance.knowledgeLevel,
-                       sims, 'knowledge_level')
+                        sims, 'knowledge_level')
     # oScore = calculate(x.learningObject, testInstance.learningObject,
     #                     sims, 'learning_object')
     pathScore = calculate1(x.path, testInstance.path, sims, 'path')
@@ -64,37 +74,46 @@ def calculate1(xValue, testValue, similarity, featureVal):
                 return sim['score']
 
 
-def getScore(x, testInstance):
+def getScore(x, testInstance, attr):
     learningStyleScore = calculate(
         x.learningStyle, testInstance.learningStyle, data.learningStyles)
-    kScore = calculate(x.knowledgeLevel, testInstance.knowledgeLevel,data.knowledgeLevels)
-    # oScore = calculate(x.learningObject, testInstance.learningObject,
-    #                     sims, 'learning_object')
+    kScore = calculate(
+        x.knowledgeLevel, testInstance.knowledgeLevel, data.knowledgeLevels)
+    oScore = calculate(x.learningObject, testInstance.learningObject,
+                       data.learningObjects1)
     pathScore = calculate(x.path, testInstance.path, data.path)
+    if(x.testPerformance==None):
+        te
     testScore = calculate(int(x.testPerformance), int(testInstance.testPerformance),
                           data.testPerformance)
-    total = learningStyleScore+kScore+int(pathScore or 0)+testScore
+    total = learningStyleScore+kScore+testScore
+    if(attr == "path"):
+        total = total+int(oScore or 0)
+    if(attr == "learningObject"):
+        total = total+int(pathScore or 0)
+
     return math.sqrt(total)
 
 
 def calculate(xValue, testValue, dictVals):
-    l=None
+    l = None
     if type(dictVals) is dict:
-        l=list(dictVals.values())
-        xValue=dictVals[xValue]
-        testValue=dictVals[testValue]
+        l = list(dictVals.values())
+        xValue = dictVals[xValue]
+        testValue = dictVals[testValue]
     else:
-        l=dictVals
+        l = dictVals
+
     v1 = normalize(l, xValue)
-    v2= normalize(l,testValue)
+    v2 = normalize(l, testValue)
     return pow((v1 - v2), 2)
 
 
-def getNeighbors(trainingSet, testInstance, k):
+def getNeighbors(trainingSet, testInstance, k, attr):
     distances = {}
 
     for x in trainingSet:
-        dist = getScore(x, testInstance)
+        dist = getScore(x, testInstance, attr)
         distances[dist] = x
 
     neighbors = []
@@ -106,10 +125,10 @@ def getNeighbors(trainingSet, testInstance, k):
     return neighbors
 
 
-def getResponse(neighbors):
+def getResponse(neighbors, attr):
     classVotes = {}
     for x in range(len(neighbors)):
-        response = neighbors[x].learningObject
+        response = getattr(neighbors[x], attr)
         if response in classVotes:
             classVotes[response] += 1
         else:
@@ -119,11 +138,11 @@ def getResponse(neighbors):
     return sortedVotes[0][0]
 
 
-def getAccuracy(testSet, predictions):
+def getAccuracy(testSet, predictions, attr):
     correct = 0
     i = 0
     for x in testSet:
-        if x.learningObject == predictions[i]:
+        if getattr(x, attr) == predictions[i]:
             correct += 1
         i = i+1
     return (correct/float(len(testSet))) * 100.0
@@ -133,13 +152,13 @@ def normalize(data, val):
     return ((val - min(data)) / (max(data) - min(data)))
 
 
-def main():
+def main(attr):
     # prepare data
     trainingSet = []
     testSet = []
-    split = 0.67
+    split = 0.8
     displayResult = {}
-    loadDataset('iris.data', split, trainingSet, testSet)
+    loadDataset(split, trainingSet, testSet)
     print('Train set: ' + repr(len(trainingSet)))
     print('Test set: ' + repr(len(testSet)))
 
@@ -147,15 +166,17 @@ def main():
     predictions = []
     k = 4
     displayList = []
+    # attr="path"
+    # attr="learningObject"
     for x in range(len(testSet)):
-        neighbors = getNeighbors(trainingSet, testSet[x], k)
-        result = getResponse(neighbors)
+        neighbors = getNeighbors(trainingSet, testSet[x], k, attr)
+        result = getResponse(neighbors, attr)
         predictions.append(result)
         print('> predicted=' + repr(result) +
-              ', actual=' + repr(testSet[x].learningObject))
+              ', actual=' + repr(getattr(testSet[x], attr)))
         displayList.append('<b>predicted</b>=' + repr(result) +
-                           ', <b>actual</b>=' + repr(testSet[x].learningObject))
-    accuracy = getAccuracy(testSet, predictions)
+                           ', <b>actual</b>=' + repr(getattr(testSet[x], attr)))
+    accuracy = getAccuracy(testSet, predictions, attr)
 
     displayResult['TrainSet'] = repr(len(trainingSet))
     displayResult['TestSet'] = repr(len(testSet))
@@ -167,4 +188,21 @@ def main():
     print('Accuracy: ' + repr(accuracy) + '%')
     return displayResult
 
-main()
+
+def predict(x, attr):
+    trainingSet = []
+    k = 4
+    displayResult = {}
+    displayList = []
+    loadDataset(split=None, trainingSet=trainingSet, testSet=None)
+    neighbors = getNeighbors(trainingSet, k, x, attr)
+    result = getResponse(neighbors, attr)
+    print('> predicted=' + repr(result) +
+          ', actual=' + repr(getattr(x, attr)))
+    displayList.append('<b>predicted</b>=' + repr(result) +
+                       ', <b>actual</b>=' + repr(getattr(x, attr)))
+    
+    displayResult['results'] = displayList
+    
+
+# main()

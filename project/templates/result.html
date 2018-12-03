@@ -17,18 +17,19 @@
                     </header><!-- .heading -->
                 </div><!-- .col -->
                 <div class="col-12 col-lg-12" style="margin: 15px">
-                    <form>
+                    <form action="/showResults" method="post">
+                        <input type="hidden" name="learningStyle" value="{{learningStyle}}" />
                         <b>Which control loop you want to learn?</b>
-                        <p><input type="radio" name="problem" id="problem" value="for" required>1. For</p>
-                        <p><input type="radio" name="problem" id="problem" value="if" required>2. If</p>
-                        <p><input type="radio" name="problem" id="problem" value="if else" required>3. If else</p>
-                        <p><input type="radio" name="problem" id="problem" value="while" required>4. While</p>
-                        <p><input type="radio" name="problem" id="problem" value="do while" required>5. Do While</p>
-                        <p><input type="radio" name="problem" id="problem" value="switch" required>6. Switch</p>
+                        <p><input type="radio" name="problem" id="problem" value="for" required> 1. For</p>
+                        <p><input type="radio" name="problem" id="problem" value="if" required> 2. If</p>
+                        <p><input type="radio" name="problem" id="problem" value="if else" required> 3. If else</p>
+                        <p><input type="radio" name="problem" id="problem" value="while" required> 4. While</p>
+                        <p><input type="radio" name="problem" id="problem" value="do while" required> 5. Do While</p>
+                        <p><input type="radio" name="problem" id="problem" value="switch" required> 6. Switch</p>
                         <b>What is your knowledge level?</b>
-                        <p><input type="radio" name="knowlevel" id="knowlevel" value="Beginner" required>1. Beginner</p>
-                        <p><input type="radio" name="knowlevel" id="knowlevel" value="Intermediate" required>2. Intermediate</p>
-                        <p><input type="radio" name="knowlevel" id="knowlevel" value="Expert" required>3. Expert</p>
+                        <p><input type="radio" name="knowlevel" id="knowlevel" value="Beginner" required> 1. Beginner</p>
+                        <p><input type="radio" name="knowlevel" id="knowlevel" value="Intermediate" required> 2. Intermediate</p>
+                        <p><input type="radio" name="knowlevel" id="knowlevel" value="Expert" required> 3. Expert</p>
                         <div class="text-center">
                                 <input class="btn btn-primary" type="submit" value="submit">
                                 <input class="btn btn-light" style="margin: 10px" type="reset" value="reset">

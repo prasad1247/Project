@@ -46,8 +46,17 @@ def blog():
     result=knn.main()
     return render_template('knn.html',result=result)
 
+@bp.route('/showResults', methods=('GET', 'POST'))
+def showResults():
+    """Generate the suggestion."""
+    problem=request.form.get('problem')
+    learningStyle=request.form.get('learningStyle')
+    knowledgeLevel=request.form.get('knowlevel')
+    
+    return render_template('knn.html',result=result)
+
 @bp.route('/test')
 def course():
     """Show all the posts, most recent first."""
 
-    return render_template('result.html',learningStyle="You have a VISUAL learning style")
+    return render_template('result.html',learningStyle="VISUAL")
