@@ -6,6 +6,8 @@ import random
 from werkzeug.exceptions import abort
 from project import db
 from project import knn
+from project.generate import Feature
+
 bp = Blueprint('blog', __name__)
 
 
@@ -43,7 +45,7 @@ def post():
 @bp.route('/knn')
 def blog():
     """Run Knn."""
-    result=knn.main()
+    result=knn.main("learningObject")
     return render_template('knn.html',result=result)
 
 @bp.route('/showResults', methods=('GET', 'POST'))
@@ -52,11 +54,20 @@ def showResults():
     problem=request.form.get('problem')
     learningStyle=request.form.get('learningStyle')
     knowledgeLevel=request.form.get('knowlevel')
-    
-    return render_template('knn.html',result=result)
+    x = Feature()
+    x.problem=problem
+    x.learningStyle=learningStyle
+    x.knowledgeLevel=knowledgeLevel
+    x.testPerformance=7
+    displayResult={}
+    result=knn.predict(x,"path")
+    x.path=result
+    result1=knn.predict(x,"learningObject")
+    displayResult['path']=result
+    displayResult['learningObject']=result1
+    return render_template('final.html',result=displayResult)
 
 @bp.route('/test')
 def course():
     """Show all the posts, most recent first."""
-
-    return render_template('result.html',learningStyle="VISUAL")
+    return render_template('result.html',learningStyle="Visual")

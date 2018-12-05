@@ -13,12 +13,10 @@
 
 
 -- Dumping database structure for learningdb
-DROP DATABASE IF EXISTS `learningdb`;
 CREATE DATABASE IF NOT EXISTS `learningdb` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `learningdb`;
 
 -- Dumping structure for table learningdb.assessment_quest
-DROP TABLE IF EXISTS `assessment_quest`;
 CREATE TABLE IF NOT EXISTS `assessment_quest` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `question` varchar(2000) DEFAULT NULL,
@@ -63,7 +61,6 @@ INSERT INTO `assessment_quest` (`id`, `question`, `option1`, `option2`, `option3
 /*!40000 ALTER TABLE `assessment_quest` ENABLE KEYS */;
 
 -- Dumping structure for table learningdb.dataset
-DROP TABLE IF EXISTS `dataset`;
 CREATE TABLE IF NOT EXISTS `dataset` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `student_id` double DEFAULT '0',
@@ -76,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `dataset` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=516 DEFAULT CHARSET=utf8;
 
--- Dumping data for table learningdb.dataset: ~515 rows (approximately)
+-- Dumping data for table learningdb.dataset: ~532 rows (approximately)
 /*!40000 ALTER TABLE `dataset` DISABLE KEYS */;
 INSERT INTO `dataset` (`id`, `student_id`, `problem`, `learning_style`, `knowledge_level`, `learning_object`, `test_performance`, `path`) VALUES
 	(1, 43406.5706587384, 'switch', 'Kinesthetic', 'Intermediate', 'Highlighted Text', '4', 'Simulation->Highlighted Text'),
@@ -597,7 +594,6 @@ INSERT INTO `dataset` (`id`, `student_id`, `problem`, `learning_style`, `knowled
 /*!40000 ALTER TABLE `dataset` ENABLE KEYS */;
 
 -- Dumping structure for table learningdb.feature_sim
-DROP TABLE IF EXISTS `feature_sim`;
 CREATE TABLE IF NOT EXISTS `feature_sim` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `feature` varchar(50) DEFAULT NULL,
@@ -685,16 +681,15 @@ INSERT INTO `feature_sim` (`id`, `feature`, `value1`, `value2`, `score`) VALUES
 /*!40000 ALTER TABLE `feature_sim` ENABLE KEYS */;
 
 -- Dumping structure for table learningdb.quest_responses
-DROP TABLE IF EXISTS `quest_responses`;
 CREATE TABLE IF NOT EXISTS `quest_responses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `student_id` double DEFAULT NULL,
   `quest_id` int(11) DEFAULT NULL,
   `answer_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2782 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2758 DEFAULT CHARSET=utf8;
 
--- Dumping data for table learningdb.quest_responses: ~2,733 rows (approximately)
+-- Dumping data for table learningdb.quest_responses: ~2,695 rows (approximately)
 /*!40000 ALTER TABLE `quest_responses` DISABLE KEYS */;
 INSERT INTO `quest_responses` (`id`, `student_id`, `quest_id`, `answer_id`) VALUES
 	(1, 43406.5706587384, 3, 1),

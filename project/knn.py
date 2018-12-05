@@ -3,8 +3,10 @@ import random
 import math
 import operator
 import MySQLdb
-from project.generate import Feature
-from project import data
+from generate import Feature
+import data
+import logging, sys
+logging.basicConfig(stream=sys.stderr, level=logging.INFO)
 
 mydb = MySQLdb.connect(
     host="localhost",
@@ -33,7 +35,7 @@ def loadDataset(split, trainingSet=[], testSet=[]):
         f.learningStyle = x['learning_style']
         f.path = x['path']
         f.testPerformance = x['test_performance']
-        if(split == None):
+        if(split != None):
             if random.random() < split:
                 trainingSet.append(f)
             else:
@@ -82,9 +84,7 @@ def getScore(x, testInstance, attr):
     oScore = calculate(x.learningObject, testInstance.learningObject,
                        data.learningObjects1)
     pathScore = calculate(x.path, testInstance.path, data.path)
-    if(x.testPerformance==None):
-        te
-    testScore = calculate(int(x.testPerformance), int(testInstance.testPerformance),
+    testScore = calculate(int(x.testPerformance or 0), int(testInstance.testPerformance or 0),
                           data.testPerformance)
     total = learningStyleScore+kScore+testScore
     if(attr == "path"):
@@ -96,6 +96,9 @@ def getScore(x, testInstance, attr):
 
 
 def calculate(xValue, testValue, dictVals):
+    if(xValue==None or xValue=='' or testValue==None or testValue==''):
+        return 0
+
     l = None
     if type(dictVals) is dict:
         l = list(dictVals.values())
@@ -152,13 +155,9 @@ def normalize(data, val):
     return ((val - min(data)) / (max(data) - min(data)))
 
 
-def main(attr):
+def main(trainingSet,testSet,attr):
     # prepare data
-    trainingSet = []
-    testSet = []
-    split = 0.8
     displayResult = {}
-    loadDataset(split, trainingSet, testSet)
     print('Train set: ' + repr(len(trainingSet)))
     print('Test set: ' + repr(len(testSet)))
 
@@ -172,7 +171,7 @@ def main(attr):
         neighbors = getNeighbors(trainingSet, testSet[x], k, attr)
         result = getResponse(neighbors, attr)
         predictions.append(result)
-        print('> predicted=' + repr(result) +
+        logging.debug('> predicted=' + repr(result) +
               ', actual=' + repr(getattr(testSet[x], attr)))
         displayList.append('<b>predicted</b>=' + repr(result) +
                            ', <b>actual</b>=' + repr(getattr(testSet[x], attr)))
@@ -185,24 +184,22 @@ def main(attr):
     displayResult['TrainData'] = trainingSet
     displayResult['TestData'] = testSet
 
-    print('Accuracy: ' + repr(accuracy) + '%')
+    logging.info('Accuracy: ' + repr(accuracy) + '%')
     return displayResult
 
 
 def predict(x, attr):
     trainingSet = []
     k = 4
-    displayResult = {}
-    displayList = []
+    displayResult = ''
     loadDataset(split=None, trainingSet=trainingSet, testSet=None)
-    neighbors = getNeighbors(trainingSet, k, x, attr)
+    neighbors = getNeighbors(trainingSet, x, k, attr)
     result = getResponse(neighbors, attr)
     print('> predicted=' + repr(result) +
           ', actual=' + repr(getattr(x, attr)))
-    displayList.append('<b>predicted</b>=' + repr(result) +
-                       ', <b>actual</b>=' + repr(getattr(x, attr)))
+    displayResult =result
     
-    displayResult['results'] = displayList
     
+    return displayResult    
 
 # main()

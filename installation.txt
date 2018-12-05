@@ -1,17 +1,15 @@
-sudo apt-get update
-sudo dpkg -i mysql-apt-config_0.8.10-1_all.deb
-sudo apt-get install mysql-server
-sudo apt-get install unzip
-sudo apt-get install python3-pip
-apt-get install libmysqlclient-dev python-dev
-UPDATE mysql.user SET authentication_string=PASSWORD('my-new-password') WHERE USER='root';
-FLUSH PRIVILEGES;
+1. install python 3.7
+	https://www.python.org/ftp/python/3.7.1/python-3.7.1.exe
 
-export FLASK_APP=project
-export FLASK_ENV=development
-flask run
+2.install mysql 5.5
+	64Bit - https://dev.mysql.com/downloads/file/?id=480490
+	32Bit - https://dev.mysql.com/downloads/file/?id=480489
 
-mysql -u root -p -e "use mysql;update user set plugin='mysql_native_password' where user='root';flush privileges;"
+3.install HeidiSql - GUI for Mysql
+https://www.heidisql.com/download.php
 
-If you’re at the MySQL command line mysql> you have to declare the SQL file as source.
-mysql> source \home\user\Desktop\test.sql;
+4.import Learningdb.sql using heidisql (press ctrl+o and select learningDB.sql)
+
+5.pip install -r requirements.txt
+
+6.run "python main.py"
