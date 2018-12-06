@@ -22,5 +22,5 @@ def predict(X,Y):
             cnt = cnt+1
         k=k+1
 
-    print("clf score without split")
+    print("Linear SVC score without split")
     print(float(cnt)/len(Y_test))

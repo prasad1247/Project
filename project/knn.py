@@ -8,6 +8,7 @@ import data
 import logging, sys
 logging.basicConfig(stream=sys.stderr, level=logging.INFO)
 
+"""mysql DB Connection"""
 mydb = MySQLdb.connect(
     host="localhost",
     user="root",
@@ -17,6 +18,8 @@ mydb = MySQLdb.connect(
 
 
 def loadDataset(split, trainingSet=[], testSet=[]):
+    """Loading the dataset from DB, it splits the dataset into two, training
+    and test dataset based on split variable."""
     query=""
     if testSet==None:
         query="select * from dataset where problem='switch'"
@@ -45,6 +48,7 @@ def loadDataset(split, trainingSet=[], testSet=[]):
 
 
 def euclideanDistance(instance1, instance2, length):
+    """calculating the distance squareroot of square(x1-x2)"""
     distance = 0
     for x in range(length):
         distance += pow((instance1[x] - instance2[x]), 2)
