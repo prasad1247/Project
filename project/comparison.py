@@ -4,19 +4,27 @@ import svm
 import knn1
 import decisionTree
 import knn
-from neurtu import Benchmark, delayed,timeit,memit
-bench = Benchmark(wall_time=True, peak_memory=True)
+import _thread
+import time
+import multiprocessing as mp
+
 dat=data.parseData("path")
 dataset=np.array(dat)
 X = dataset[:,0:5] #Feature set
 Y = dataset[:,5]    #target
-def getSvm():
-    yield delayed(svm).predict(X,Y)
-bench = Benchmark(wall_time=True, peak_memory=True)
-df = bench(getSvm())
-print(df)
-
-knn1.predict(X,Y)
-decisionTree.predict(X,Y)
 Xt,Yt=data.loadDataset(0.8,offset=0,cnt=200)
-knn.main(Xt,Yt,"path")
+def main():
+    pool    = mp.Pool(processes=4)
+    t1=pool.apply_async(knn.main,(Xt,Yt,"path"))
+    t2=pool.apply_async(svm.predict,(X,Y))
+    t3=pool.apply_async(knn1.predict,(X,Y))
+    t4=pool.apply_async(decisionTree.predict,(X,Y))
+    # pool.close()
+    t1.get()
+    t2.get()
+    t3.get()
+    t4.get()
+
+if __name__ == "__main__":
+    mp.freeze_support()
+    main()

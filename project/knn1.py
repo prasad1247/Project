@@ -6,6 +6,10 @@ import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 
 def predict(X,Y):
+    dat=data.parseData("path")
+    dataset=np.array(dat)
+    X = dataset[:,0:5] #Feature set
+    Y = dataset[:,5]    #target
     knn = neighbors.KNeighborsRegressor()
     X_train,X_test,Y_train,Y_test = model_selection.train_test_split(X, Y, test_size = 0.2, train_size=0.8, random_state=0)
 

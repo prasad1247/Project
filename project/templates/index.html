@@ -13,42 +13,34 @@
             <div class="row">
                 <div class="col-12">
                     <header class="heading flex justify-content-between align-items-center">
-                        <h2 class="entry-title">Find Your Learning Style</h2>
+                        <!-- <h2 class="entry-title">Find Your Learning Style</h2> -->
                     </header><!-- .heading -->
                 </div><!-- .col -->
                 <div class="col-12 col-lg-12">
-                    <form action="/post" method="post">
-                        <div class="course-content flex flex-wrap justify-content-between align-content-lg-stretch">
-                            {%  set i = 1 %}
-                              {% for quest in question %}
-                            <div class="row" style="margin: 10px">
-                                <div class="col-12 col-lg-12">
-                                    <b>{{loop.index}}. {{ quest['question'] }}</b>
-                                    {% set i = i + 1 %}
-                                </div>
-                                <div class="col-12 col-lg-12">
-                                    <input type="radio" name="option{{quest['id']}}" id="option1" value="1" required> A. {{
-                                    quest['option1']
-                                    }}
-                                </div>
-                                <div class="col-12 col-lg-12">
-                                    <input type="radio" name="option{{quest['id']}}" id="option2" value="2" required> B. {{
-                                    quest['option2']
-                                    }}
-                                </div>
-                                <div class="col-12 col-lg-12">
-                                    <input type="radio" name="option{{quest['id']}}" id="option2" value="3" required> C. {{
-                                    quest['option3']
-                                    }}
-                                </div>
-                            </div>
-                            {% endfor %}
-                            <div class="text-center">
-                                <input class="btn btn-primary" type="submit" value="Next">
-                                <input class="btn btn-light" style="margin: 10px" type="reset" value="reset">
-                            </div>
-                            <!-- .course-content -->
-                    </form>
+                    {% if userDataset is defined %}
+                    <table class="table table-bordered">
+                        <thead style="background-color: gainsboro;">
+                            <tr>
+                                <td>Problem</td>
+                                <td>Learning Style</td>
+                                <td>Learning Object</td>
+                                <td>Path</td>
+                                <td>Evaluate Suggestion</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for data in userDataset %}
+                            <tr>
+                                <td>{{data['problem']}}</td>
+                                <td>{{data['learning_style']}}</td>
+                                <td>{{data['learning_object']}}</td>
+                                <td>{{data['path']}}</td>
+                                <td>take a test</td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                    {%endif%}
                 </div>
             </div><!-- .col -->
 

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Learning Style</title>
+    {% include 'cssFiles.html' %}
+</head>
+
+<body class="courses-page">
+    {% include 'header.html' %}
+    <section class="featured-courses horizontal-column courses-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <header class="heading flex justify-content-between align-items-center">
+                        <h3 class="entry-title" style="margin: 10px">Register</h3>
+                    </header><!-- .heading -->
+                </div><!-- .col -->
+                <div class="col-md-6 col-md-offset-3" style="margin: 15px">
+                    <div class="panel-body">
+                        <form action="/doregister" method="post">
+                            <div class="row" style="padding: 10px">
+                                <div class="col-12 "><input type="text" name="name" placeholder="Name" class="form-control" /></div>
+                            </div>
+                            <div class="row" style="padding: 10px">
+                                <div class="col-12" ><input type="text" name="username" placeholder="Username"
+                                        class="form-control" /></div>
+                            </div>
+                            <div class="row" style="padding: 10px">
+                                <div class="col-12" ><input type="password" name="password" placeholder="Password"
+                                        class="form-control" /></div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6 col-sm-offset-3">
+                                        <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-primary"
+                                            value="Register">
+                                    </div>
+                                    <div class="col-sm-6 col-sm-offset-3">
+                                        <input type="reset" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-light"
+                                            value="Reset">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- .col -->
+
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </section><!-- .courses-wrap -->
+    {% include 'footerJs.html' %}
+</body>
+
+</html>

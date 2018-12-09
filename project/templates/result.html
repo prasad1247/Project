@@ -19,6 +19,8 @@
                 <div class="col-12 col-lg-12" style="margin: 15px">
                     <form action="/showResults" method="post">
                         <input type="hidden" name="learningStyle" value="{{learningStyle}}" />
+                        <input type="hidden" name="userId" value="{{user.get('id')}}" />
+                        <input type="hidden" name="username" value="{{user.get('username')}}" />
                         <b>Which control loop you want to learn?</b>
                         <p><input type="radio" name="problem" id="problem" value="for" required> 1. For</p>
                         <p><input type="radio" name="problem" id="problem" value="if" required> 2. If</p>

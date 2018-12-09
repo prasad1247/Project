@@ -3,8 +3,8 @@ import random
 import math
 import operator
 import MySQLdb
-from generate import Feature
-import data
+from project.generate import Feature
+import project.data as data
 import logging, sys
 logging.basicConfig(stream=sys.stderr, level=logging.INFO)
 
@@ -162,8 +162,8 @@ def normalize(data, val):
 def main(trainingSet,testSet,attr):
     # prepare data
     displayResult = {}
-    print('Train set: ' + repr(len(trainingSet)))
-    print('Test set: ' + repr(len(testSet)))
+    # print('Train set: ' + repr(len(trainingSet)))
+    # print('Test set: ' + repr(len(testSet)))
 
     # generate predictions
     predictions = []

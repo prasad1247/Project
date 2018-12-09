@@ -1,6 +1,6 @@
 import MySQLdb
 import random
-from generate import Feature
+from project.generate import Feature
 
 mydb = MySQLdb.connect(
     host="localhost",
