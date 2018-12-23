@@ -131,16 +131,39 @@ def showResults():
     return render_template('final.html',result=displayResult)
 
 @bp.route('/test')
-def course():
+def test():
     """Show all the posts, most recent first."""
     user =getUser(request,session)
     return render_template('result.html',learningStyle="Visual",user=user)
 
 
 @bp.route('/taketest')
-def course():
+def takeTest():
     """Show all the posts, most recent first."""
     user =getUser(request,session)
     problem=request.args.get("problem")
-    db.getTestQuestions(problem)
-    return render_template('result.html',learningStyle="Visual",user=user)
+    questions=db.getTestQuestions(problem)
+    return render_template('test.html',learningStyle="Visual",user=user,problem=problem,questions=questions)
+
+@bp.route('/showResults1', methods=('GET', 'POST'))
+def showTestResults():
+    """Show all the posts, most recent first."""
+    user =getUser(request,session)
+    questions=db.getTestQuestions(request.form.get('problem'))
+    marks=0
+    response=''
+    for i in range(1,10):
+        ans=request.form.get('problem'+str(i))
+        for quest in questions:
+            if(i==quest['id']):
+                if ans==str(quest['answer']):
+                    marks +=1
+
+    if(marks>3):
+        response='Y'
+        db.insertIntoDataset(user['id'])
+    else:
+        response='N'
+        db.updateUserDataset(str(user['id']),str(marks)+'',"Video")
+
+    return render_template('revise.html',learningStyle="Visual",user=user,response=response)

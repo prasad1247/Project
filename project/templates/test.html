@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Learning Style</title>
+    {% include 'cssFiles.html' %}
+</head>
+
+<body class="courses-page">
+    {% include 'header.html' %}
+    <section class="featured-courses horizontal-column courses-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <header class="heading flex justify-content-between align-items-center">
+                        <h3 class="entry-title" style="margin: 10px">{{learningStyle}}</h3>
+                    </header><!-- .heading -->
+                </div><!-- .col -->
+                <div class="col-12 col-lg-12" style="margin: 15px">
+                    <form action="/showResults1" method="post">
+                        <input type="hidden" name="learningStyle" value="{{learningStyle}}" />
+                        <input type="hidden" name="userId" value="{{user.get('id')}}" />
+                        <input type="hidden" name="username" value="{{user.get('username')}}" />
+                        <input type="hidden" name="problem" value="{{problem}}" />
+                        {%  set i = 1 %}
+                        {% for quest in questions %}
+                        {% set i = i + 1 %}
+                        <b><code>{{quest['quest'] | safe}}</code></b>
+                        <p><input type="radio" name="problem{{quest['id']}}" id="problem{{quest['id']}}" value="1" required> 1. {{quest['choice1']}}</p>
+                        <p><input type="radio" name="problem{{quest['id']}}" id="problem{{quest['id']}}" value="2" required> 2. {{quest['choice2']}}</p>
+                        <p><input type="radio" name="problem{{quest['id']}}" id="problem{{quest['id']}}" value="3" required> 3. {{quest['choice3']}}</p>
+                        {% endfor %}
+                        <div class="text-center">
+                                <input class="btn btn-primary" type="submit" value="submit">
+                                <input class="btn btn-light" style="margin: 10px" type="reset" value="reset">
+                        </div>
+                    </form>
+                </div>
+            </div><!-- .col -->
+
+        </div><!-- .row -->
+        </div><!-- .container -->
+    </section><!-- .courses-wrap -->
+    {% include 'footerJs.html' %}
+</body>
+
+</html>

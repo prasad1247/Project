@@ -75,6 +75,29 @@ def addTouserDataset(userId,x):
     mysql.connection.commit()
 
 
+def insertIntoDataset(userId):
+    cur = mysql.connection.cursor()
+    cur.execute('insert into dataset(student_id,problem,learning_style,knowledge_level,learning_object,'+
+    'test_performance,path) select user_id,problem,learning_style,knowledge_level,learning_object,'+
+    'test_performance,path from user_dataset where user_id='+userId)
+    mysql.connection.commit()
+    cur = mysql.connection.cursor()
+    cur.execute('update user_dataset set done = 1 where user_id=%s',(userId,))
+    mysql.connection.commit()
+
+
+def updateUserDataset(userId,test_performance,path):
+    cur = mysql.connection.cursor()
+    cur.execute('update user_dataset set done = 1 where user_id=%s',(userId,))
+    mysql.connection.commit()
+    cur = mysql.connection.cursor()
+    cur.execute('insert into user_dataset(user_id,problem,learning_style,knowledge_level,learning_object,'+
+    'test_performance,path,done) select user_id,problem,learning_style,knowledge_level,learning_object,'+
+    '"'+test_performance+'","'+path+'",0 from user_dataset where user_id='+userId)
+    mysql.connection.commit()
+    
+
+
 def registerUser(username,password,name):
     cur = mysql.connection.cursor()
     cur.execute('insert into user(username,password,name)values(%s,%s,%s)',(username,password,name))
