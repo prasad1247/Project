@@ -12,16 +12,19 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <header class="heading flex justify-content-between align-items-center">
+                    
+                        <h4>Marks :: {{marks}}</h4>
                         {% if response=='Y' %}
-                        <h3 class="entry-title" style="margin: 10px">Great. You passed the test.
-                        We have added the data to dataset</h3>
+                        <p style="margin: 10px">Great. You passed the test.
+                        We have <b>Retained</b> the data to dataset</p>
                         {% endif %}
                         {% if response=='N' %}
-                        <h3 class="entry-title" style="margin: 10px">We have updated the suggestion.
-                        Please take test again after studying</h3>
+                        <p style="margin: 10px">You did not pass the test.
+                            Please take the test again after studying.</p>
+                        <p style="margin: 10px">We have <b>Revised</b> the suggestion.
+                        </p>
                         {% endif %}
-                    </header><!-- .heading -->
+                   
                 </div><!-- .col -->
                 <div class="col-12 col-lg-12" style="margin: 15px">
                 </form>

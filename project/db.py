@@ -59,7 +59,7 @@ def getTestQuestions(problem):
 
 def getIncompleteDataset(userId):
     cur = mysql.connection.cursor()
-    cur.execute('select * from user_dataset where user_id=%s',(userId,))
+    cur.execute('select * from user_dataset where done =0 and user_id=%s',(userId,))
     row_headers=[x[0] for x in cur.description]
     rv = cur.fetchall()
     json_data=[]
@@ -87,13 +87,15 @@ def insertIntoDataset(userId):
 
 
 def updateUserDataset(userId,test_performance,path):
+    userData=getIncompleteDataset(userId)
+    id=userData[0]['id']
     cur = mysql.connection.cursor()
     cur.execute('update user_dataset set done = 1 where user_id=%s',(userId,))
     mysql.connection.commit()
     cur = mysql.connection.cursor()
     cur.execute('insert into user_dataset(user_id,problem,learning_style,knowledge_level,learning_object,'+
     'test_performance,path,done) select user_id,problem,learning_style,knowledge_level,learning_object,'+
-    '"'+test_performance+'","'+path+'",0 from user_dataset where user_id='+userId)
+    '"'+test_performance+'","'+path+'",0 from user_dataset where id=%s and user_id=%s',(id,userId))
     mysql.connection.commit()
     
 

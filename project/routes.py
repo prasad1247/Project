@@ -166,4 +166,4 @@ def showTestResults():
         response='N'
         db.updateUserDataset(str(user['id']),str(marks)+'',"Video")
 
-    return render_template('revise.html',learningStyle="Visual",user=user,response=response)
+    return render_template('revise.html',learningStyle="Visual",user=user,response=response,marks=marks)
