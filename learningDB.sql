@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `assessment_quest` (
 
 -- Dumping data for table learningdb.assessment_quest: ~27 rows (approximately)
 /*!40000 ALTER TABLE `assessment_quest` DISABLE KEYS */;
-INSERT INTO `assessment_quest` (`id`, `question`, `option1`, `option2`, `option3`, `option4`, `answer`) VALUES
+INSERT IGNORE INTO `assessment_quest` (`id`, `question`, `option1`, `option2`, `option3`, `option4`, `answer`) VALUES
 	(1, 'What I generally do while operating new equipment', 'First I read the instructions', 'I take note of an description given by somebody who has used it before', 'I will go ahead and operate it, and figure out after using that equipment', NULL, NULL),
 	(2, 'Which guideline is better for me related to directions while travelling', 'I will use a map', 'I will ask to nearby person for directions', 'I will follow my instincts and possibly use a GPS', NULL, NULL),
 	(3, 'While cooking new food ,I would like to:', 'follow a printed procedure', 'take advice from a friend for the preparation', 'try cooking and test it', NULL, NULL),
@@ -71,11 +71,11 @@ CREATE TABLE IF NOT EXISTS `dataset` (
   `test_performance` varchar(50) DEFAULT '0',
   `path` varchar(50) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=516 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=545 DEFAULT CHARSET=utf8;
 
--- Dumping data for table learningdb.dataset: ~532 rows (approximately)
+-- Dumping data for table learningdb.dataset: ~560 rows (approximately)
 /*!40000 ALTER TABLE `dataset` DISABLE KEYS */;
-INSERT INTO `dataset` (`id`, `student_id`, `problem`, `learning_style`, `knowledge_level`, `learning_object`, `test_performance`, `path`) VALUES
+INSERT IGNORE INTO `dataset` (`id`, `student_id`, `problem`, `learning_style`, `knowledge_level`, `learning_object`, `test_performance`, `path`) VALUES
 	(1, 43406.5706587384, 'switch', 'Kinesthetic', 'Intermediate', 'Highlighted Text', '4', 'Simulation->Highlighted Text'),
 	(2, 43406.5711609028, 'while', 'Auditory', 'Intermediate', 'Video', '5', 'Audios->Video'),
 	(3, 43406.571854213, 'if else', 'Visual', 'Beginner', 'Chart', '3', 'Video->Chart'),
@@ -590,7 +590,29 @@ INSERT INTO `dataset` (`id`, `student_id`, `problem`, `learning_style`, `knowled
 	(512, 43410.7917379398, 'if', 'Visual', 'Expert', 'Chart', '6', 'Video->Chart'),
 	(513, 43410.7921369676, 'switch', 'Visual', 'Beginner', 'Chart', '4', 'Video->Chart'),
 	(514, 1542605735.62526, 'for', 'Visual', 'Beginner', 'Chart', '4', 'Video->Chart'),
-	(515, 1542759098.02518, 'for', 'Visual', 'Expert', 'Video', '5', 'Video->Chart');
+	(515, 1542759098.02518, 'for', 'Visual', 'Expert', 'Video', '5', 'Video->Chart'),
+	(516, 2, 'for', 'Visual', 'Beginner', 'Video', '7', 'Video->Chart'),
+	(517, 2, NULL, 'Visual', NULL, 'Video', '7', 'Video->Chart'),
+	(518, 2, 'for', 'Visual', 'Beginner', 'Video', '2', 'Video'),
+	(519, 2, 'for', 'Visual', 'Beginner', 'Video', '5', 'Video'),
+	(520, 2, NULL, 'Visual', NULL, 'Video', '5', 'Video'),
+	(521, 2, 'for', 'Visual', 'Beginner', 'Video', '5', 'Video'),
+	(523, 2, 'for', 'Visual', 'Beginner', 'Video', '7', 'Video->Chart'),
+	(524, 2, 'for', 'Visual', 'Beginner', 'Video', '3', 'Video'),
+	(525, 2, 'for', 'Visual', 'Beginner', 'Video', '3', 'Video'),
+	(526, 2, 'for', 'Visual', 'Beginner', 'Video', '3', 'Video'),
+	(527, 2, 'for', 'Visual', 'Beginner', 'Video', '3', 'Video'),
+	(528, 2, 'for', 'Visual', 'Beginner', 'Video', '3', 'Video'),
+	(530, 2, 'for', 'Visual', 'Beginner', 'Video', '7', 'Video->Chart'),
+	(531, 2, 'for', 'Visual', 'Beginner', 'Video', '3', 'Video'),
+	(532, 2, 'for', 'Visual', 'Beginner', 'Video', '3', 'Video'),
+	(533, 2, 'for', 'Visual', 'Beginner', 'Video', '3', 'Video'),
+	(534, 2, 'for', 'Visual', 'Beginner', 'Video', '3', 'Video'),
+	(535, 2, 'for', 'Visual', 'Beginner', 'Video', '3', 'Video'),
+	(536, 2, 'for', 'Visual', 'Beginner', 'Video', '0', 'Video'),
+	(537, 2, 'for', 'Visual', 'Beginner', 'Video', '0', 'Video'),
+	(538, 2, 'for', 'Visual', 'Beginner', 'Video', '0', 'Video'),
+	(539, 2, 'for', 'Visual', 'Beginner', 'Video', '0', 'Video');
 /*!40000 ALTER TABLE `dataset` ENABLE KEYS */;
 
 -- Dumping structure for table learningdb.feature_sim
@@ -605,7 +627,7 @@ CREATE TABLE IF NOT EXISTS `feature_sim` (
 
 -- Dumping data for table learningdb.feature_sim: ~72 rows (approximately)
 /*!40000 ALTER TABLE `feature_sim` DISABLE KEYS */;
-INSERT INTO `feature_sim` (`id`, `feature`, `value1`, `value2`, `score`) VALUES
+INSERT IGNORE INTO `feature_sim` (`id`, `feature`, `value1`, `value2`, `score`) VALUES
 	(1, 'problem', 'for', 'for', 10),
 	(2, 'problem', 'for', 'if', 5),
 	(3, 'problem', 'for', 'if else', 4),
@@ -687,11 +709,11 @@ CREATE TABLE IF NOT EXISTS `quest_responses` (
   `quest_id` int(11) DEFAULT NULL,
   `answer_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2758 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2812 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table learningdb.quest_responses: ~2,695 rows (approximately)
 /*!40000 ALTER TABLE `quest_responses` DISABLE KEYS */;
-INSERT INTO `quest_responses` (`id`, `student_id`, `quest_id`, `answer_id`) VALUES
+INSERT IGNORE INTO `quest_responses` (`id`, `student_id`, `quest_id`, `answer_id`) VALUES
 	(1, 43406.5706587384, 3, 1),
 	(2, 43406.5711609028, 1, 1),
 	(3, 43406.571854213, 1, 1),
@@ -3424,8 +3446,138 @@ INSERT INTO `quest_responses` (`id`, `student_id`, `quest_id`, `answer_id`) VALU
 	(2730, 1542605735.62526, 3, NULL),
 	(2755, 1542759098.02518, 1, NULL),
 	(2756, 1542759098.02518, 2, NULL),
-	(2757, 1542759098.02518, 3, NULL);
+	(2757, 1542759098.02518, 3, NULL),
+	(2758, 1546209743.48155, 1, 1),
+	(2759, 1546209743.48155, 2, 1),
+	(2760, 1546209743.48155, 3, 1),
+	(2761, 1546209743.48155, 4, 1),
+	(2762, 1546209743.48155, 5, 1),
+	(2763, 1546209743.48155, 6, 1),
+	(2764, 1546209743.48155, 7, 1),
+	(2765, 1546209743.48155, 8, 1),
+	(2766, 1546209743.48155, 9, 1),
+	(2767, 1546209743.48155, 10, 1),
+	(2768, 1546209743.48155, 11, 1),
+	(2769, 1546209743.48155, 12, 1),
+	(2770, 1546209743.48155, 13, 1),
+	(2771, 1546209743.48155, 14, 1),
+	(2772, 1546209743.48155, 15, 1),
+	(2773, 1546209743.48155, 16, 1),
+	(2774, 1546209743.48155, 17, 1),
+	(2775, 1546209743.48155, 18, 1),
+	(2776, 1546209743.48155, 19, 1),
+	(2777, 1546209743.48155, 20, 1),
+	(2778, 1546209743.48155, 21, 1),
+	(2779, 1546209743.48155, 22, 1),
+	(2780, 1546209743.48155, 23, 1),
+	(2781, 1546209743.48155, 24, 1),
+	(2782, 1546209743.48155, 25, 1),
+	(2783, 1546209743.48155, 26, 1),
+	(2784, 1546209743.48155, 27, 1),
+	(2785, 1546205338.95423, 1, 1),
+	(2786, 1546205338.95423, 2, 1),
+	(2787, 1546205338.95423, 3, 2),
+	(2788, 1546205338.95423, 4, 1),
+	(2789, 1546205338.95423, 5, 1),
+	(2790, 1546205338.95423, 6, 1),
+	(2791, 1546205338.95423, 7, 1),
+	(2792, 1546205338.95423, 8, 1),
+	(2793, 1546205338.95423, 9, 1),
+	(2794, 1546205338.95423, 10, 1),
+	(2795, 1546205338.95423, 11, 1),
+	(2796, 1546205338.95423, 12, 1),
+	(2797, 1546205338.95423, 13, 1),
+	(2798, 1546205338.95423, 14, 1),
+	(2799, 1546205338.95423, 15, 1),
+	(2800, 1546205338.95423, 16, 1),
+	(2801, 1546205338.95423, 17, 1),
+	(2802, 1546205338.95423, 18, 1),
+	(2803, 1546205338.95423, 19, 1),
+	(2804, 1546205338.95423, 20, 1),
+	(2805, 1546205338.95423, 21, 1),
+	(2806, 1546205338.95423, 22, 1),
+	(2807, 1546205338.95423, 23, 1),
+	(2808, 1546205338.95423, 24, 1),
+	(2809, 1546205338.95423, 25, 1),
+	(2810, 1546205338.95423, 26, 1),
+	(2811, 1546205338.95423, 27, 1);
 /*!40000 ALTER TABLE `quest_responses` ENABLE KEYS */;
+
+-- Dumping structure for table learningdb.tests
+CREATE TABLE IF NOT EXISTS `tests` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `problem` varchar(50) DEFAULT NULL,
+  `quest` varchar(500) DEFAULT NULL,
+  `choice1` varchar(500) DEFAULT NULL,
+  `choice2` varchar(500) DEFAULT NULL,
+  `choice3` varchar(500) DEFAULT NULL,
+  `answer` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table learningdb.tests: ~14 rows (approximately)
+/*!40000 ALTER TABLE `tests` DISABLE KEYS */;
+INSERT IGNORE INTO `tests` (`id`, `problem`, `quest`, `choice1`, `choice2`, `choice3`, `answer`) VALUES
+	(1, 'for', 'What would be printed from the following Java code segment?\r\n<br>&nbsp;for(i=20;i>0;i-=2)\r\n<br>&nbsp;&nbsp;  System.out.println(i);\r\n<br>', '20 18 16 14 12 10 8 6 4 2', '20 18 16 14 12 10 8 6 4 2 0', '20 18 16 14 12 10 8 6 4', 1),
+	(2, 'for', 'What is the correct syntax of for each loop?', 'for(variable:collection)\r\n {body;}', 'for(data_type variable:collection)\r\n {body;}', 'for(data_type variable;collection)\r\n {body;}', 2),
+	(3, 'for', 'Is following code snippet is correct?\r\n<br>&nbsp;for(int i=1; i<=10; i++)\r\n   <br>&nbsp;&nbsp; System.out.println(i);', 'Yes', 'No', NULL, 1),
+	(4, 'for', '  int x[]={1,2,3,4,5};\r\n       <br> &nbsp;&nbsp;for(int i=0; i<x.length;i++)\r\n           <br> &nbsp;&nbsp;&nbsp;System.out.print(x[i]);', '12345', '6', '1,2,3,4,5', 1),
+	(5, 'for', ' for (int i = 0; i < 10; i++) \r\n       <br>&nbsp;&nbsp;     int x = 10; ', ' No Output', '10', ' Compile time error', 3),
+	(6, 'while', 'A while loop runs code as long as the condition(s) is/are:', 'False', 'True', NULL, 1),
+	(7, 'while', 'int sum = 0, i = 10;   \r\n  <br>  &nbsp;  while (i != 0) {\r\n  <br>     &nbsp;&nbsp;  sum += i;     // sum = sum + i;\r\n      <br>   &nbsp;&nbsp;--i;\r\n    <br> &nbsp; }\r\n<br>System.out.println("Sum = " + sum);', '50', '45', '46', 2),
+	(8, 'while', 'int n = 5;\r\n\r\n        while( n > 0 )\r\n        {\r\n            n--;\r\n            System.out.println("n = " + 5 );\r\n        }', 'n = 4\r\nn = 3\r\nn = 2\r\nn = 1', 'n = 4\r\nn = 3\r\nn = 2\r\nn = 1\r\nn = 0', 'n = 5\r\nn = 5\r\nn = 5\r\nn = 5\r\nn = 5', 3),
+	(9, 'while', ' int m = 0;\r\n        while (m++ < 2)\r\n            System.out.print(m + " ");', '0 1 2', '1 2', '2', 2),
+	(10, 'while', 'int x = 1;\r\n        int y = 6;\r\n        while (y--) {\r\n            x++;\r\n        }\r\n        System.out.println("x = " + x + " y = " + y);', '	x = 6 y = 0', 'x = 6 y = -1', 'x = 7 y = -1', 3),
+	(11, 'if', 'A if statement runs code as long as the condition(s) is:', 'True', 'False', 'Everytime', 1),
+	(12, 'if', ' if( 1 > 2 )\r\n        {\r\n            System.out.println(" 1 is greater than 2");\r\n        }', 'No output.', '1 is greater than 2', '2 is greater than 1', 1),
+	(13, 'if', ' boolean b = true; \r\n        if (b = false) { \r\n            System.out.println("HELLO"); \r\n        }', 'HELLO', 'BYE', 'No output', 2),
+	(14, 'if', 'int a = 10, b = 20; \r\nif (a < b) { \r\n            if (a > b) { \r\n                System.out.println("HELLO GEEKS"); \r\n            } \r\n}', 'HELLO GEEKS', 'Compile time error', 'No output', 3);
+/*!40000 ALTER TABLE `tests` ENABLE KEYS */;
+
+-- Dumping structure for table learningdb.user
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(500) DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table learningdb.user: ~2 rows (approximately)
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT IGNORE INTO `user` (`id`, `name`, `username`, `password`) VALUES
+	(2, 'aa', 'aa', 'aa'),
+	(3, 'aaa', 'aaa', 'aaa');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+
+-- Dumping structure for table learningdb.user_dataset
+CREATE TABLE IF NOT EXISTS `user_dataset` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `done` int(11) NOT NULL DEFAULT '0',
+  `user_id` int(11) DEFAULT NULL,
+  `problem` varchar(50) DEFAULT NULL,
+  `learning_style` varchar(50) DEFAULT NULL,
+  `knowledge_level` varchar(50) DEFAULT NULL,
+  `learning_object` varchar(50) DEFAULT NULL,
+  `test_performance` varchar(50) DEFAULT NULL,
+  `path` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table learningdb.user_dataset: ~1 rows (approximately)
+/*!40000 ALTER TABLE `user_dataset` DISABLE KEYS */;
+INSERT IGNORE INTO `user_dataset` (`id`, `done`, `user_id`, `problem`, `learning_style`, `knowledge_level`, `learning_object`, `test_performance`, `path`) VALUES
+	(20, 1, 2, 'for', 'Visual', 'Beginner', 'Video', '7', 'Video->Chart'),
+	(21, 1, 2, 'for', 'Visual', 'Beginner', 'Video', '3', 'Video'),
+	(29, 1, 2, 'for', 'Visual', 'Beginner', 'Video', '3', 'Video'),
+	(31, 1, 2, 'for', 'Visual', 'Beginner', 'Video', '3', 'Video'),
+	(32, 1, 2, 'for', 'Visual', 'Beginner', 'Video', '3', 'Video'),
+	(33, 1, 2, 'for', 'Visual', 'Beginner', 'Video', '3', 'Video'),
+	(34, 1, 2, 'for', 'Visual', 'Beginner', 'Video', '0', 'Video'),
+	(35, 1, 2, 'for', 'Visual', 'Beginner', 'Video', '0', 'Video'),
+	(36, 1, 2, 'for', 'Visual', 'Beginner', 'Video', '0', 'Video'),
+	(37, 1, 2, 'for', 'Visual', 'Beginner', 'Video', '0', 'Video');
+/*!40000 ALTER TABLE `user_dataset` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
