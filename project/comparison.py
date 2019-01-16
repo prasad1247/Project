@@ -1,30 +1,40 @@
-import data
+from project import data,svm,knn1,decisionTree,knn
 import numpy as np
-import svm
-import knn1
-import decisionTree
-import knn
 import _thread
 import time
 import multiprocessing as mp
 
-dat=data.parseData("path")
-dataset=np.array(dat)
-X = dataset[:,0:5] #Feature set
-Y = dataset[:,5]    #target
-Xt,Yt=data.loadDataset(0.8,offset=0,cnt=200)
-def main():
-    pool    = mp.Pool(processes=4)
-    t1=pool.apply_async(knn.main,(Xt,Yt,"path"))
-    t2=pool.apply_async(svm.predict,(X,Y))
-    t3=pool.apply_async(knn1.predict,(X,Y))
-    t4=pool.apply_async(decisionTree.predict,(X,Y))
-    # pool.close()
-    t1.get()
-    t2.get()
-    t3.get()
-    t4.get()
 
-if __name__ == "__main__":
-    mp.freeze_support()
-    main()
+def timerAnalysis(cnt):
+    
+    dat=data.parseData1("path",cnt)
+    dataset=np.array(dat)
+    X = dataset[:,0:5] #Feature set
+    Y = dataset[:,5]    #target
+    print(len(X))
+    div=30
+    Xt,Yt=data.loadDataset(0.8,offset=0,cnt=200)
+
+    times={}    
+    time1 = int(round(time.time()*1000))
+    kdata=knn.main(Xt,Yt,"path")
+    print('KNN')
+    print(kdata['accuracy'])
+    
+    time2 = int(round(time.time() *1000)) 
+    times['knn']=(time2-time1)/div
+    print(svm.predict(X,Y))
+    div=100
+    time3 = int(round(time.time() *1000)) 
+    times['svm']=(time3-time2)
+    print(knn1.predict(X,Y))
+    time4 = int(round(time.time()*1000 )) 
+    times['knn1']=(time4-time3)
+    print(decisionTree.predict(X,Y))
+    time5 = int(round(time.time()*1000 )) 
+    times['decisionTree']=(time5-time4)
+    return times
+
+# if __name__ == "__main__":
+    # mp.freeze_support()
+# print(timerAnalysis())

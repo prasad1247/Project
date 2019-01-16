@@ -5,9 +5,9 @@ import time
 import random
 from werkzeug.exceptions import abort
 from project import db
-from project import knn
+from project import knn,data
 from project.generate import Feature
-
+from project import comparison
 bp = Blueprint('blog', __name__)
 
 
@@ -105,7 +105,8 @@ def post():
 @bp.route('/knn')
 def blog():
     """Run Knn."""
-    result=knn.main("learningObject")
+    Xt,Yt=data.loadDataset(0.8,offset=0,cnt=200)
+    result=knn.main(Xt,Yt,"learningObject")
     return render_template('knn.html',result=result)
 
 @bp.route('/showResults', methods=('GET', 'POST'))
@@ -136,6 +137,14 @@ def test():
     user =getUser(request,session)
     return render_template('result.html',learningStyle="Visual",user=user)
 
+@bp.route('/compare')
+def compare():
+    """Show all the posts, most recent first."""
+    
+    graph1=comparison.timerAnalysis(3)
+    graph2=comparison.timerAnalysis(4)
+    graph3=comparison.timerAnalysis(5)
+    return render_template('compare.html',learningStyle="Visual",graph1=graph1,graph2=graph2,graph3=graph3)
 
 @bp.route('/taketest')
 def takeTest():
@@ -157,9 +166,9 @@ def showTestResults():
         for quest in questions:
             if(i==quest['id']):
                 if ans==str(quest['answer']):
-                    marks +=1
+                    marks +=2
 
-    if(marks>3):
+    if(marks>5):
         response='Y'
         db.insertIntoDataset(user['id'])
     else:

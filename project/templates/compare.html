@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Learning Style</title>
+    {% include 'cssFiles.html' %}
+    <script type='text/javascript' src="{{ url_for('static', filename='js/Chart.bundle.min.js') }}"></script>
+</head>
+
+<body class="courses-page">
+    {% include 'header.html' %}
+    <section class="featured-courses horizontal-column courses-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <h4>For 200 Records</h4>
+                    <canvas id="myChart" width="200" height="200"></canvas>
+                    <script>
+                        var ctx = document.getElementById("myChart").getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: ["knn", "svm", "decisionTree"],
+                                datasets: [{
+                                    label: 'Time in ms',
+                                    data: [{{graph1['knn']}},{{graph1['svm']}}, {{graph1['decisionTree']}}],
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)',
+                                        'rgba(255, 159, 64, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255,99,132,1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+                    </script>
+                </div><!-- .col -->
+                <div class="col-6">
+                    <h4>For 300 Records</h4>
+                    <canvas id="myChart1" width="200" height="200"></canvas>
+                    <script>
+                        var ctx = document.getElementById("myChart1").getContext('2d');
+                        var myChart1 = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: ["knn", "svm", "decisionTree"],
+                                datasets: [{
+                                    label: 'Time in ms',
+                                    data: [{{graph2['knn']}},{{graph2['svm']}}, {{graph2['decisionTree']}}],
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)',
+                                        'rgba(255, 159, 64, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255,99,132,1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+                    </script>
+                </div><!-- .col -->
+                <div class="col-6" style="margin: 15px">
+                        <h4>For 375 Records</h4>
+                    <canvas id="myChart2" width="200" height="200"></canvas>
+                    <script>
+                        var ctx = document.getElementById("myChart2").getContext('2d');
+                        var myChart2 = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: ["knn", "svm", "decisionTree"],
+                                datasets: [{
+                                    label: 'Time in ms',
+                                    data: [{{graph3['knn']}},{{graph3['svm']}}, {{graph3['decisionTree']}}],
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)',
+                                        'rgba(255, 159, 64, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255,99,132,1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+            </div><!-- .col -->
+
+        </div><!-- .row -->
+        </div><!-- .container -->
+    </section><!-- .courses-wrap -->
+    {% include 'footerJs.html' %}
+</body>
+
+</html>

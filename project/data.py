@@ -42,6 +42,29 @@ def parseData(attr):
         trainingSet.append(f)
     return trainingSet
 
+def parseData1(attr,cnt):
+    trainingSet = []
+    for i in range(0,cnt):
+        mydb.query("""select * from dataset where problem='switch'""")
+        r = mydb.store_result()
+        dataset = r.fetch_row(maxrows=0, how=1)
+        for x in dataset:
+            f = []
+            f.append(problemList[x['problem']])
+            # f.append(x['student_id'])
+            f.append(knowledgeLevels[x['knowledge_level']])
+            f.append(learningStyles[x['learning_style']])
+            f.append(int(x['test_performance']))
+            if(attr == "path"):
+                f.append(learningObjects1[x['learning_object']])
+                f.append(path[x['path']])
+            if(attr == "learningObject"):
+                f.append(path[x['path']])
+                f.append(learningObjects1[x['learning_object']])
+
+            trainingSet.append(f)
+    return trainingSet
+
 
 def loadDataset(split, attr=None, offset=None, cnt=None):
     trainingSet = []
