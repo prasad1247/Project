@@ -71,9 +71,9 @@ CREATE TABLE IF NOT EXISTS `dataset` (
   `test_performance` varchar(50) DEFAULT '0',
   `path` varchar(50) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=545 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=540 DEFAULT CHARSET=utf8;
 
--- Dumping data for table learningdb.dataset: ~560 rows (approximately)
+-- Dumping data for table learningdb.dataset: ~465 rows (approximately)
 /*!40000 ALTER TABLE `dataset` DISABLE KEYS */;
 INSERT IGNORE INTO `dataset` (`id`, `student_id`, `problem`, `learning_style`, `knowledge_level`, `learning_object`, `test_performance`, `path`) VALUES
 	(1, 43406.5706587384, 'switch', 'Kinesthetic', 'Intermediate', 'Highlighted Text', '4', 'Simulation->Highlighted Text'),
@@ -3564,7 +3564,7 @@ CREATE TABLE IF NOT EXISTS `user_dataset` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 
--- Dumping data for table learningdb.user_dataset: ~1 rows (approximately)
+-- Dumping data for table learningdb.user_dataset: ~10 rows (approximately)
 /*!40000 ALTER TABLE `user_dataset` DISABLE KEYS */;
 INSERT IGNORE INTO `user_dataset` (`id`, `done`, `user_id`, `problem`, `learning_style`, `knowledge_level`, `learning_object`, `test_performance`, `path`) VALUES
 	(20, 1, 2, 'for', 'Visual', 'Beginner', 'Video', '7', 'Video->Chart'),
