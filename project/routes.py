@@ -30,7 +30,7 @@ def getUser(request,session):
 def home():
     """Login."""
     user =getUser(request,session)
-    if id ==None:
+    if  user['id'] ==None:
         msg="User Not Found. Please Register"
         return render_template('login.html',msg=msg)
     else:
