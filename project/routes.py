@@ -141,10 +141,11 @@ def test():
 def compare():
     """Show all the posts, most recent first."""
     
-    graph1=comparison.timerAnalysis(3)
-    graph2=comparison.timerAnalysis(4)
-    graph3=comparison.timerAnalysis(5)
-    return render_template('compare.html',learningStyle="Visual",graph1=graph1,graph2=graph2,graph3=graph3)
+    time1,accuracy1=comparison.timerAnalysis(3)
+    time2,accuracy2=comparison.timerAnalysis(4)
+    time3,accuracy3=comparison.timerAnalysis(5)
+    return render_template('compare.html',learningStyle="Visual",time1=time1,time2=time2,time3=time3,
+    accuracy1=accuracy1,accuracy2=accuracy2,accuracy3=accuracy3)
 
 @bp.route('/taketest')
 def takeTest():

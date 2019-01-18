@@ -21,12 +21,14 @@ def predict(X,Y):
 	modelSVMRaw = LinearSVC(C = 0.1)
 	modelSVMRaw = modelSVMRaw.fit(X_new, Y)
 	cnt = 0
-	for i in modelSVMRaw.predict(X_new):
-		if(i == Y[1]):
+	k=0
+	for i in modelSVMRaw.predict(X_test):
+		if(int(round(i)) == Y_test[k]):
 			cnt = cnt+1
+		k=k+1
 	print("SVM")
-	print(float(cnt)/75)
-	return float(cnt)/75
+	print(float(cnt)/len(Y_test))
+	return float(cnt)/len(Y_test)
 
 # dat=data.parseData("path")
 # dataset=np.array(dat)

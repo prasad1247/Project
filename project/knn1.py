@@ -28,3 +28,4 @@ def predict(X,Y):
 
     print("knn")
     print(float(cnt)/len(Y_test))
+    return float(cnt)/len(Y_test)
