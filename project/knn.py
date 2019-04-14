@@ -106,8 +106,8 @@ def calculate(xValue, testValue, dictVals):
     l = None
     if type(dictVals) is dict:
         l = list(dictVals.values())
-        xValue = dictVals[xValue]
-        testValue = dictVals[testValue]
+        xValue = dictVals.get(xValue,xValue)
+        testValue = dictVals.get(testValue,testValue)
     else:
         l = dictVals
 

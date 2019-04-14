@@ -49,7 +49,7 @@ def getUser(userId):
 
 def getTestQuestions(problem):
     cur = mysql.connection.cursor()
-    cur.execute('select * from tests where problem=%s',(problem,))
+    cur.execute('select * from tests where problem=%s order by id',(problem,))
     row_headers=[x[0] for x in cur.description]
     rv = cur.fetchall()
     json_data=[]
@@ -75,10 +75,10 @@ def addTouserDataset(userId,x):
     mysql.connection.commit()
 
 
-def insertIntoDataset(userId):
+def insertIntoDataset(userId,level):
     cur = mysql.connection.cursor()
     cur.execute('insert into dataset(student_id,problem,learning_style,knowledge_level,learning_object,'+
-    'test_performance,path) select user_id,problem,learning_style,knowledge_level,learning_object,'+
+    'test_performance,path) select user_id,problem,learning_style,"'+level+'",learning_object,'+
     'test_performance,path from user_dataset where user_id='+userId)
     mysql.connection.commit()
     cur = mysql.connection.cursor()
@@ -95,7 +95,7 @@ def updateUserDataset(userId,test_performance,path):
     cur = mysql.connection.cursor()
     cur.execute('insert into user_dataset(user_id,problem,learning_style,knowledge_level,learning_object,'+
     'test_performance,path,done) select user_id,problem,learning_style,knowledge_level,learning_object,'+
-    '"'+test_performance+'","'+path+'",0 from user_dataset where id=%s and user_id=%s',(id,userId))
+    '"'+test_performance+'",path,0 from user_dataset where id=%s and user_id=%s',(id,userId))
     mysql.connection.commit()
     
 

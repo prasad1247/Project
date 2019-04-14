@@ -13,7 +13,11 @@
             <div class="row">
                 <div class="col-12">
 
-                    <p style="margin: 10px">Suggested Path is :: <b>{{result['path']}}</b></p>
+                    <p style="margin: 10px">Suggested Path is :: </p>
+                    <table class="table table-bordered">
+                        <tr><td><a href="{{result['path'].split('->')[0]}}">{{result['path'].split('->')[0]}}</a></td></tr>
+                        <tr><td><a href="{{result['path'].split('->')[1]}}">{{result['path'].split('->')[1]}}</a></td></tr>
+                    </table>
                     <p style="margin: 10px">Suggested Learning Object is :: <b>{{result['learningObject']}}</b></p>
                     <p>Learn as per suggested path and learning object. Evaluate the performance by taking the test</p>                  </p>
                     <a href="/home">Go to Home to take the test</a>

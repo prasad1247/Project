@@ -15,10 +15,16 @@ learningStyles = {"Visual": 1, "Auditory": 2, "Kinesthetic": 3}
 knowledgeLevels = {"Beginner": 1, "Intermediate": 2, "Expert": 3}
 learningObjects1 = {"Video": 1, "Chart": 2,
                     "Audios": 3, "Simulation": 4, "Highlighted Text": 5}
-testPerformance = [3, 4, 5, 6, 7]
-path = {"Video->Chart": 1, "Audios->Video": 2,
-        "Simulation->Highlighted Text": 3}
 
+learningObjects1 = {"https://nptel.ac.in/cources/106104128/15": 1, "https://www.geeksforgeeks.org/c-language-2-gq/loops-control-structure-gq/": 2,
+                    "https://www.cluster2.hostgator.co.in/files/writeable/uploads/hostgator99706/file/letusc-yashwantkanetkar.pdf": 3, "http://cse02-iiith.vlabs.ac.in/exp3/simulation/index.html": 4,
+                     "https://www.tutorialspoint.com/cprogramming/c_for_loop.htm": 5}
+
+testPerformance = [3, 4, 5, 6, 7]
+path1 = {"Video->Chart": 1, "Audios->Video": 2,
+        "Simulation->Highlighted Text": 3}
+path = {"https://nptel.ac.in/cources/106104128/15->https://www.geeksforgeeks.org/c-language-2-gq/loops-control-structure-gq/": 1, "https://www.cluster2.hostgator.co.in/files/writeable/uploads/hostgator99706/file/letusc-yashwantkanetkar.pdf->https://nptel.ac.in/cources/106104128/15": 2,
+        "http://cse02-iiith.vlabs.ac.in/exp3/simulation/index.html->https://www.tutorialspoint.com/cprogramming/c_for_loop.htm": 3}
 
 def parseData(attr):
     trainingSet = []

@@ -25,7 +25,7 @@
                         {%  set i = 1 %}
                         {% for quest in questions %}
                         {% set i = i + 1 %}
-                        <b><code>{{quest['quest'] | safe}}</code></b>
+                        <b><code>{{quest['quest'].replace("\r\n","\r\n<br>") | safe}}</code></b>
                         <p><input type="radio" name="problem{{quest['id']}}" id="problem{{quest['id']}}" value="1" required> 1. {{quest['choice1']}}</p>
                         <p><input type="radio" name="problem{{quest['id']}}" id="problem{{quest['id']}}" value="2" required> 2. {{quest['choice2']}}</p>
                         <p><input type="radio" name="problem{{quest['id']}}" id="problem{{quest['id']}}" value="3" required> 3. {{quest['choice3']}}</p>

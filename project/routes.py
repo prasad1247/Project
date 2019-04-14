@@ -160,20 +160,33 @@ def showTestResults():
     """Show all the posts, most recent first."""
     user =getUser(request,session)
     questions=db.getTestQuestions(request.form.get('problem'))
-    marks=0
+    marks=2
     response=''
-    for i in range(1,10):
-        ans=request.form.get('problem'+str(i))
-        for quest in questions:
-            if(i==quest['id']):
-                if ans==str(quest['answer']):
-                    marks +=2
-
-    if(marks>5):
+    for quest in questions:
+        ans=request.form.get('problem'+str(quest['id']))
+        if ans==str(quest['answer']):
+            marks +=1
+ 
+    if(marks*100/20>75):
         response='Y'
-        db.insertIntoDataset(user['id'])
+        db.insertIntoDataset(user['id'],"Expert")
+    elif(marks*100/20>60):
+        response='Y'
+        db.insertIntoDataset(user['id'],"Intermediate")
+    elif(marks*100/20>50):
+        response='Y'
+        db.insertIntoDataset(user['id'],"Beginner")
     else:
         response='N'
-        db.updateUserDataset(str(user['id']),str(marks)+'',"Video")
+        db.updateUserDataset(str(user['id']),str(marks)+'','')
 
     return render_template('revise.html',learningStyle="Visual",user=user,response=response,marks=marks)
+
+
+@bp.route('/test111')
+def takeTest111():
+    """Show all the posts, most recent first."""
+    user =getUser(request,session)
+    problem=request.args.get("problem")
+    questions=db.getTestQuestions(problem)
+    return render_template('test.html',learningStyle="Visual",user=user,problem=problem,questions=questions)
